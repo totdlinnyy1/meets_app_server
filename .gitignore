@@ -1,0 +1,10 @@
+.idea
+
+node_modules
+auth-service/node_modules
+rooms-service/node_modules
+messages-service/node_modules
+
+auth-service/.env
+rooms-service.env
+messages-service/.env

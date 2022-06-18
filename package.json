@@ -1,0 +1,16 @@
+{
+  "name": "meets_app_server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/totdlinnyy1/meets_app_server.git",
+  "author": "Baltsevich Danil <tot_dlinnyy@vk.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "cz-conventional-changelog": "3.3.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
