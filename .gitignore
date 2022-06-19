@@ -6,5 +6,9 @@ rooms-service/node_modules
 messages-service/node_modules
 
 auth-service/.env
-rooms-service.env
+rooms-service/.env
 messages-service/.env
+
+auth-service/dist
+rooms-service/dist
+messages-service/dist
