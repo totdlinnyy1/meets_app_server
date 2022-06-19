@@ -1,3 +1,5 @@
+import { ConnectionOptions } from 'typeorm'
+
 const DEFAULT_PSQL_HOST = 'localhost'
 const DEFAULT_PSQL_PORT = 5432
 
@@ -15,6 +17,6 @@ const connectionOptions = {
     cli: {
         migrationsDir: `${__dirname}/../migrations`,
     },
-}
+} as ConnectionOptions
 
 export = connectionOptions
