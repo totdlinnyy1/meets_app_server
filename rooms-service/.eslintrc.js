@@ -139,5 +139,5 @@ module.exports = {
     ],
     'no-restricted-syntax': 'off',
   },
-  ignorePatterns: ['.eslintrc.js', 'src/migrations'],
+  ignorePatterns: ['.eslintrc.js', 'src/migrations', 'test'],
 }
