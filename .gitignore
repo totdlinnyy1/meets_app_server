@@ -12,3 +12,5 @@ messages-service/.env
 auth-service/dist
 rooms-service/dist
 messages-service/dist
+
+auth-service/assets

@@ -20,8 +20,8 @@ export class UserEntity extends BaseAudit {
     @Column({ type: 'date' })
     birthday: Date
 
-    @Column({ type: 'text' })
-    avatar: string
+    @Column({ type: 'text', nullable: true })
+    avatar?: string
 
     @Column({ type: 'boolean', default: false })
     isEmailConfirmed: boolean
