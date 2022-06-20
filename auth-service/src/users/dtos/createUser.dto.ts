@@ -3,6 +3,5 @@ export interface CreateUserDto {
     lastName: string
     email: string
     password: string
-    avatar?: string
-    birthday: Date
+    birthday: string
 }
