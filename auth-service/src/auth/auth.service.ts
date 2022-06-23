@@ -14,6 +14,7 @@ import * as moment from 'moment'
 import { Repository } from 'typeorm'
 import { v4 as Uuidv4 } from 'uuid'
 
+import { RolesEnum } from '../enums/roles.enum'
 import { CreateUserDto } from '../users/dtos/createUser.dto'
 import { LoginUserDto } from '../users/dtos/loginUser.dto'
 import { RefreshTokenEntity } from '../users/entities/refresh-token.entity'
@@ -41,7 +42,7 @@ export class AuthService {
         private readonly _configService: ConfigService,
         private readonly _usersService: UsersService,
     ) {
-        this._expiresInSeconds = +this._configService.get<number>(
+        this._expiresInSeconds = this._configService.get<number>(
             'ACCESS_TOKEN_TTL',
             DEFAULT_ACCESS_TOKEN_TTL,
         )
@@ -67,26 +68,34 @@ export class AuthService {
         )
     }
 
+    // Регистрация обычного пользователя
     async signUp(input: CreateUserDto): Promise<AuthType> {
-        const id = await this._usersService.createUser(input)
+        //Создание пользователя
+        const user = await this._usersService.createUser(input)
 
-        const payload: JwtPayload = { sub: id }
+        // Создание токена
+        const payload: JwtPayload = { sub: user.id, role: user.role }
         const jwt = await this.createJWT(payload)
 
         return jwt
     }
 
+    // Вход
     async signIn(input: LoginUserDto): Promise<AuthType> {
-        const id = await this._usersService.login(input)
+        // Проверка данных пользователя и получение других его данных
+        const user = await this._usersService.login(input)
 
+        // Создания токена
         const payload: JwtPayload = {
-            sub: id,
+            sub: user.id,
+            role: user.role,
         }
         const jwt = await this.createJWT(payload)
 
         return jwt
     }
 
+    // Функция создает access и refresh токены
     protected async createJWT(payload: JwtPayload): Promise<AuthType> {
         const jwt = await this.createAccessToken(payload)
         jwt.refreshToken = await this.createRefreshToken(payload.sub)
@@ -94,6 +103,7 @@ export class AuthService {
         return jwt
     }
 
+    // Функция создает access токен
     protected async createAccessToken(
         payload: JwtPayload,
         expires = this._expiresInSeconds,
@@ -111,6 +121,7 @@ export class AuthService {
         } as AuthType
     }
 
+    // Функция создает refresh токен
     protected async createRefreshToken(userId: string): Promise<string> {
         const REFRESH_TOKEN_LENGTH = 64
 
@@ -127,6 +138,7 @@ export class AuthService {
         return newRefreshToken.token
     }
 
+    // Функция получает refresh и access токен и на основе refresh создает новые токены
     async getAccessTokenFromRefreshToken(
         refreshToken: string,
         oldAccessToken: string,
@@ -148,6 +160,7 @@ export class AuthService {
 
         const payload: JwtPayload = {
             sub: oldPayload.sub,
+            role: oldPayload.role,
         }
 
         const jwt = await this.createJWT(payload)
@@ -157,6 +170,7 @@ export class AuthService {
         return jwt
     }
 
+    // Функция верифицирует токен
     async verifyToken(token: string): Promise<{ isVerified: boolean }> {
         try {
             verify(token, this._jwtPublicKey, {
@@ -175,10 +189,14 @@ export class AuthService {
         }
     }
 
+    // Функция декодирует токен
     async decodeToken(token: string): Promise<JwtPayload> {
         const response = await this.verifyToken(token)
         if (response.isVerified) {
-            const parsedToken = (await decode(token)) as { sub: string }
+            const parsedToken = (await decode(token)) as {
+                sub: string
+                role: RolesEnum
+            }
 
             return parsedToken
         }

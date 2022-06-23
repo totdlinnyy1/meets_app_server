@@ -1,15 +1,14 @@
-import { Column, Entity } from 'typeorm'
+import { Column, DeleteDateColumn, Entity, OneToOne } from 'typeorm'
 
 import { BaseAudit } from '../../entities/base.entity'
 import { RolesEnum } from '../../enums/roles.enum'
 
-@Entity('user')
+import { UserDataEntity } from './userData.entity'
+
+@Entity('users')
 export class UserEntity extends BaseAudit {
     @Column({ type: 'text' })
     name: string
-
-    @Column({ type: 'text' })
-    lastName: string
 
     @Column({ type: 'text', unique: true })
     email: string
@@ -26,6 +25,12 @@ export class UserEntity extends BaseAudit {
     @Column({ type: 'boolean', default: false })
     isEmailConfirmed: boolean
 
-    @Column({ type: 'enum', enum: RolesEnum })
+    @Column({ type: 'enum', enum: RolesEnum, default: RolesEnum.USER })
     role: RolesEnum
+
+    @OneToOne(() => UserDataEntity)
+    data: UserDataEntity
+
+    @DeleteDateColumn()
+    deletedAt: Date
 }

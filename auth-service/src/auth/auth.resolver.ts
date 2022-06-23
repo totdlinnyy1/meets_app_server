@@ -12,17 +12,20 @@ import { AuthType } from './graphql/types/auth.type'
 export class AuthResolver {
     constructor(private readonly _authService: AuthService) {}
 
+    // Регистрация обычного пользователя, возвращвет токены
     @UsePipes(new UserValidationPipe())
     @Mutation(() => AuthType)
     async signUp(@Args('input') input: CreateUserInput): Promise<AuthType> {
         return await this._authService.signUp(input)
     }
 
+    // Вход, возвращвет токены
     @Query(() => AuthType)
     async signIn(@Args('input') input: LoginUserInput): Promise<AuthType> {
         return await this._authService.signIn(input)
     }
 
+    // Обновление токенов
     @Mutation(() => AuthType)
     async refreshToken(
         @Args('refreshToken') refreshToken: string,

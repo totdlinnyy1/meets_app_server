@@ -9,6 +9,7 @@ import { validate } from 'class-validator'
 
 import { CreateUserDto } from '../users/dtos/createUser.dto'
 
+// Пайп для проверки вводимых данных
 @Injectable()
 export class UserValidationPipe implements PipeTransform {
     async transform(
@@ -22,6 +23,7 @@ export class UserValidationPipe implements PipeTransform {
         const errors = await validate(object)
 
         if (errors.length > 0) {
+            // Возрат ошибок в объекте {поле - ошибка}
             const messages = errors.map((err) => {
                 if (err.constraints) {
                     const property = err.property
