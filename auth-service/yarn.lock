@@ -1269,6 +1269,13 @@
     "@types/connect" "*"
     "@types/node" "*"
 
+"@types/buffer-to-stream@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@types/buffer-to-stream/-/buffer-to-stream-1.0.0.tgz#d070d55d053f1b0a4838836030cc421b7fa81ad0"
+  integrity sha512-3PRBkAOminPRNg3F+5mKrY1f7ZlJ+iN4GY8TQjl7bIKcB2ldSKYpsohcVK/yVTRGr0iRoa9UXHdOUM87X+XS4Q==
+  dependencies:
+    "@types/node" "*"
+
 "@types/connect@*":
   version "3.4.35"
   resolved "https://registry.yarnpkg.com/@types/connect/-/connect-3.4.35.tgz#5fcf6ae445e4021d1fc2219a4873cc73a3bb2ad1"
@@ -1566,6 +1573,14 @@
   dependencies:
     "@typescript-eslint/types" "5.28.0"
     eslint-visitor-keys "^3.3.0"
+
+"@uploadcare/upload-client@^4.0.1":
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/@uploadcare/upload-client/-/upload-client-4.0.1.tgz#1387dad80583c1212dd3c4297b42b74a1a059472"
+  integrity sha512-77HS/lyzWRnLr6oJ/HqD5YApJLo+mX4LBJdVSOhULrMKaPouDMH078xeUrP2FuR2q75/lLLSxNTS0X6GFaG6xQ==
+  dependencies:
+    form-data "^4.0.0"
+    ws "^8.2.3"
 
 "@webassemblyjs/ast@1.11.1":
   version "1.11.1"
@@ -7245,6 +7260,11 @@ ws@8.7.0:
   version "7.5.8"
   resolved "https://registry.yarnpkg.com/ws/-/ws-7.5.8.tgz#ac2729881ab9e7cbaf8787fe3469a48c5c7f636a"
   integrity sha512-ri1Id1WinAX5Jqn9HejiGb8crfRio0Qgu8+MtL36rlTA6RLsMdWt1Az/19A2Qij6uSHUMphEFaTKa4WG+UNHNw==
+
+ws@^8.2.3:
+  version "8.8.0"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-8.8.0.tgz#8e71c75e2f6348dbf8d78005107297056cb77769"
+  integrity sha512-JDAgSYQ1ksuwqfChJusw1LSJ8BizJ2e/vVu5Lxjq3YvNJNlROv1ui4i+c/kUUrPheBvQl4c5UbERhTwKa6QBJQ==
 
 xml-name-validator@^3.0.0:
   version "3.0.0"
